@@ -12,7 +12,6 @@ const validateBody = (schema) => {
     } else {
       next(HttpError(400, `missing fields`));
     }
-    next();
   };
   return func;
 };
