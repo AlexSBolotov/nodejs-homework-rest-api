@@ -6,11 +6,7 @@ const validateBody = (schema) => {
     if (numbersOfFields) {
       const { error } = schema.validate(req.body);
       if (error) {
-        const str = error.message;
-        const startIndex = str.indexOf('"') + 1;
-        const endIndex = str.lastIndexOf('"');
-        const field = str.slice(startIndex, endIndex);
-        next(HttpError(400, `missing required ${field} field`));
+        next(HttpError(400, error.message));
       }
       next();
     } else {
