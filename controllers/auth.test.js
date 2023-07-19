@@ -4,6 +4,7 @@ const express = require("express");
 const request = require("supertest");
 const cors = require("cors");
 const mongoose = require("mongoose");
+require("dotenv").config();
 const { PORT = 3000, DB_HOST } = process.env;
 
 const testUser = {
@@ -28,9 +29,9 @@ describe("test loginUser controller", () => {
         process.exit(1);
       });
   });
-  //   afterAll(() => {
-  //     app.close();
-  //   });
+  afterAll(async () => {
+    await mongoose.connection.close();
+  });
   test("loginUser returns 200 status", async () => {
     const response = await request(app).post("/users/login").send(testUser);
     expect(response.status).toBe(200);
